@@ -1,0 +1,14 @@
+[
+  {
+    "input": {"strs": ["eat", "tea", "tan", "ate", "nat", "bat"]},
+    "expected_output": [["ate", "eat", "tea"], ["bat"], ["nat", "tan"]]
+  },
+  {
+    "input": {"strs": ["", ""]},
+    "expected_output": [["", ""]]
+  },
+  {
+    "input": {"strs": ["abc", "bca", "cab", "foo", "oof", "bar"]},
+    "expected_output": [["abc", "bca", "cab"], ["bar"], ["foo", "oof"]]
+  }
+]

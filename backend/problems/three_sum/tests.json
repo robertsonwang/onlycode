@@ -1,0 +1,7 @@
+[
+  {"input": {"nums": [-1, 0, 1, 2, -1, -4]}, "expected_output": [[-1, -1, 2], [-1, 0, 1]]},
+  {"input": {"nums": [0, 0, 0, 0]}, "expected_output": [[0, 0, 0]]},
+  {"input": {"nums": [-2, 0, 1, 1, 2]}, "expected_output": [[-2, 0, 2], [-2, 1, 1]]},
+  {"input": {"nums": [1, 2, 3]}, "expected_output": []},
+  {"input": {"nums": [-4, -1, -1, 0, 1, 2]}, "expected_output": [[-1, -1, 2], [-1, 0, 1]]}
+]

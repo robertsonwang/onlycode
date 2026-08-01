@@ -1,0 +1,7 @@
+[
+  {"input": {"s": "abcabcbb"}, "expected_output": 3},
+  {"input": {"s": "bbbbb"}, "expected_output": 1},
+  {"input": {"s": "pwwkew"}, "expected_output": 3},
+  {"input": {"s": ""}, "expected_output": 0},
+  {"input": {"s": "dvdf"}, "expected_output": 3}
+]

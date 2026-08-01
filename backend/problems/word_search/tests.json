@@ -1,0 +1,7 @@
+[
+  {"input": {"board": [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], "word": "ABCCED"}, "expected_output": true},
+  {"input": {"board": [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], "word": "SEE"}, "expected_output": true},
+  {"input": {"board": [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], "word": "ABCB"}, "expected_output": false},
+  {"input": {"board": [["a"]], "word": "a"}, "expected_output": true},
+  {"input": {"board": [["A","B"],["C","D"]], "word": "ACDB"}, "expected_output": true}
+]

@@ -1,0 +1,7 @@
+[
+  {"input": {"s": "babad"}, "expected_output": "bab"},
+  {"input": {"s": "cbbd"}, "expected_output": "bb"},
+  {"input": {"s": "a"}, "expected_output": "a"},
+  {"input": {"s": "racecar"}, "expected_output": "racecar"},
+  {"input": {"s": "aacabdkacaa"}, "expected_output": "aca"}
+]

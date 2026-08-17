@@ -1,0 +1,15 @@
+[
+  {"input": {"test": "mse_basic"}, "expected_output": true},
+  {"input": {"test": "gradients_zero_at_optimum"}, "expected_output": true},
+  {"input": {"test": "gradients_numeric_check"}, "expected_output": true},
+  {"input": {"test": "fit_recovers_true_params"}, "expected_output": true},
+  {"input": {"test": "fit_matches_closed_form"}, "expected_output": true},
+  {"input": {"test": "loss_decreases_monotonically_ish"}, "expected_output": true},
+  {"input": {"test": "l2_gradient_reduces_to_plain_at_alpha_zero"}, "expected_output": true},
+  {"input": {"test": "ridge_shrinks_weights"}, "expected_output": true},
+  {"input": {"test": "sgd_converges_reasonably"}, "expected_output": true},
+  {"input": {"test": "sgd_reproducible_with_seed"}, "expected_output": true},
+  {"input": {"test": "r_squared_perfect_fit"}, "expected_output": true},
+  {"input": {"test": "r_squared_mean_baseline"}, "expected_output": true},
+  {"input": {"test": "r_squared_on_trained_model"}, "expected_output": true}
+]

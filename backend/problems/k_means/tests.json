@@ -1,0 +1,19 @@
+[
+  {"input": {"test": "squared_distances_hand_computed"}, "expected_output": true},
+  {"input": {"test": "squared_distances_symmetry_with_single_centroid"}, "expected_output": true},
+  {"input": {"test": "init_centroids_shape"}, "expected_output": true},
+  {"input": {"test": "init_centroids_are_actual_points"}, "expected_output": true},
+  {"input": {"test": "init_centroids_distinct_points"}, "expected_output": true},
+  {"input": {"test": "assign_clusters_hand_computed"}, "expected_output": true},
+  {"input": {"test": "assign_clusters_output_shape_and_range"}, "expected_output": true},
+  {"input": {"test": "update_centroids_hand_computed"}, "expected_output": true},
+  {"input": {"test": "update_centroids_empty_cluster_keeps_old"}, "expected_output": true},
+  {"input": {"test": "single_run_terminates_early_on_convergence"}, "expected_output": true},
+  {"input": {"test": "single_run_hits_iteration_cap_when_capped_low"}, "expected_output": true},
+  {"input": {"test": "fit_kmeans_recovers_well_separated_blobs"}, "expected_output": true},
+  {"input": {"test": "fit_kmeans_centroids_close_to_true_centers"}, "expected_output": true},
+  {"input": {"test": "fit_kmeans_reliable_across_many_datasets"}, "expected_output": true},
+  {"input": {"test": "fit_kmeans_picks_lower_inertia_than_typical_single_run"}, "expected_output": true},
+  {"input": {"test": "inertia_hand_computed"}, "expected_output": true},
+  {"input": {"test": "inertia_lower_after_fitting_than_at_init"}, "expected_output": true}
+]

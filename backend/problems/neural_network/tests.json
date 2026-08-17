@@ -1,0 +1,16 @@
+[
+  {"input": {"test": "relu_basic"}, "expected_output": true},
+  {"input": {"test": "relu_derivative_basic"}, "expected_output": true},
+  {"input": {"test": "sigmoid_basic_and_stable"}, "expected_output": true},
+  {"input": {"test": "init_params_shapes"}, "expected_output": true},
+  {"input": {"test": "init_params_not_all_zero_weights"}, "expected_output": true},
+  {"input": {"test": "forward_output_shape_and_range"}, "expected_output": true},
+  {"input": {"test": "forward_hand_computed"}, "expected_output": true},
+  {"input": {"test": "bce_known_value"}, "expected_output": true},
+  {"input": {"test": "bce_finite_at_extremes"}, "expected_output": true},
+  {"input": {"test": "backward_gradient_check"}, "expected_output": true},
+  {"input": {"test": "loss_history_decreases"}, "expected_output": true},
+  {"input": {"test": "solves_xor"}, "expected_output": true},
+  {"input": {"test": "predict_returns_ints_in_range"}, "expected_output": true},
+  {"input": {"test": "accuracy_on_solved_xor"}, "expected_output": true}
+]

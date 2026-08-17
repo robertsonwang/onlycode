@@ -3,11 +3,12 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, WebSocket
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from db import get_problem, init_db, list_problems, log_submission, sync_problems_from_filesystem
+from debug_runner import handle_debug_session
 from runner import run_submission
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -82,3 +83,8 @@ def submit_solution(payload: SubmissionRequest) -> dict:
         "problem_id": payload.problem_id,
         **result,
     }
+
+
+@app.websocket("/ws/debug")
+async def debug_websocket(websocket: WebSocket):
+    await handle_debug_session(websocket)

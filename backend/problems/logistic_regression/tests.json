@@ -1,0 +1,19 @@
+[
+  {"input": {"test": "sigmoid_basic_values"}, "expected_output": true},
+  {"input": {"test": "sigmoid_numerically_stable"}, "expected_output": true},
+  {"input": {"test": "sigmoid_symmetry"}, "expected_output": true},
+  {"input": {"test": "bce_perfect_predictions"}, "expected_output": true},
+  {"input": {"test": "bce_known_value"}, "expected_output": true},
+  {"input": {"test": "bce_handles_extreme_probs_without_nan"}, "expected_output": true},
+  {"input": {"test": "gradients_numeric_check"}, "expected_output": true},
+  {"input": {"test": "gradients_zero_when_perfectly_confident_and_correct"}, "expected_output": true},
+  {"input": {"test": "fit_separates_linearly_separable_data"}, "expected_output": true},
+  {"input": {"test": "loss_decreases_with_training"}, "expected_output": true},
+  {"input": {"test": "l2_gradient_reduces_to_plain_at_alpha_zero"}, "expected_output": true},
+  {"input": {"test": "ridge_shrinks_weights"}, "expected_output": true},
+  {"input": {"test": "predict_proba_and_predict_consistency"}, "expected_output": true},
+  {"input": {"test": "accuracy_basic"}, "expected_output": true},
+  {"input": {"test": "precision_recall_f1_known_values"}, "expected_output": true},
+  {"input": {"test": "precision_recall_f1_no_predicted_positives"}, "expected_output": true},
+  {"input": {"test": "full_pipeline_high_f1_on_separable_data"}, "expected_output": true}
+]

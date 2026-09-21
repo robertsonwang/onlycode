@@ -11,6 +11,8 @@ RESULT_MARKER = "__RESULT_JSON__"
 
 
 def _limit_resources(memory_limit_mb: int) -> None:
+    if memory_limit_mb <= 0:
+        return
     memory_bytes = memory_limit_mb * 1024 * 1024
     try:
         resource.setrlimit(resource.RLIMIT_AS, (memory_bytes, memory_bytes))
@@ -94,7 +96,7 @@ print(RESULT_MARKER + json.dumps(payload))
 def run_submission(
     code: str,
     tests: list[dict[str, Any]],
-    timeout_seconds: float = 2.0,
+    timeout_seconds: float = 10.0,
     memory_limit_mb: int = 256,
 ) -> dict[str, Any]:
     python_cmd = shutil.which("python3") or sys.executable

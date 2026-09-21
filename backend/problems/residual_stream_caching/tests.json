@@ -1,0 +1,11 @@
+[
+  {"input": {"test": "pad_sequences_values"}, "expected_output": true},
+  {"input": {"test": "pad_sequences_rejects_empty"}, "expected_output": true},
+  {"input": {"test": "masked_mean_ignores_padding"}, "expected_output": true},
+  {"input": {"test": "extract_matches_direct_cache"}, "expected_output": true},
+  {"input": {"test": "extract_does_not_leak_hooks"}, "expected_output": true},
+  {"input": {"test": "extract_cleans_up_after_error"}, "expected_output": true},
+  {"input": {"test": "batched_cache_shapes_and_order"}, "expected_output": true},
+  {"input": {"test": "batched_cache_matches_full_batch"}, "expected_output": true},
+  {"input": {"test": "batched_cache_one_forward_per_batch"}, "expected_output": true}
+]

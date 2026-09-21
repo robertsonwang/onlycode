@@ -76,7 +76,15 @@ def submit_solution(payload: SubmissionRequest) -> dict:
     except json.JSONDecodeError as exc:
         raise HTTPException(status_code=500, detail=f"Invalid tests.json: {exc}") from exc
 
-    result = run_submission(payload.code, tests)
+    runner_config = {}
+    runner_config_path = PROBLEMS_DIR / payload.problem_id / "runner.json"
+    if runner_config_path.exists():
+        try:
+            runner_config = json.loads(runner_config_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as exc:
+            raise HTTPException(status_code=500, detail=f"Invalid runner.json: {exc}") from exc
+
+    result = run_submission(payload.code, tests, **runner_config)
     log_submission(payload.problem_id, payload.code, result.get("all_passed", False))
 
     return {

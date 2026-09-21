@@ -1,0 +1,8 @@
+[
+  {"input": {"test": "ingest_sorts_files"}, "expected_output": true},
+  {"input": {"test": "chunk_with_overlap"}, "expected_output": true},
+  {"input": {"test": "embed_shape_matches_chunks"}, "expected_output": true},
+  {"input": {"test": "retrieve_finds_numpy_chunk_first"}, "expected_output": true},
+  {"input": {"test": "generate_stub_includes_sources"}, "expected_output": true},
+  {"input": {"test": "pipeline_end_to_end"}, "expected_output": true}
+]

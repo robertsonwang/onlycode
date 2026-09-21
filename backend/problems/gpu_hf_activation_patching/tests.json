@@ -1,0 +1,10 @@
+[
+  {"input": {"test": "cuda_is_required"}, "expected_output": true},
+  {"input": {"test": "last_token_metric_uses_mask"}, "expected_output": true},
+  {"input": {"test": "replace_positions_preserves_tuple"}, "expected_output": true},
+  {"input": {"test": "capture_matches_direct_hook"}, "expected_output": true},
+  {"input": {"test": "capture_removes_hook"}, "expected_output": true},
+  {"input": {"test": "patch_effect_matches_manual_intervention"}, "expected_output": true},
+  {"input": {"test": "empty_patch_has_zero_recovery"}, "expected_output": true},
+  {"input": {"test": "layer_scan_is_correct_and_efficient"}, "expected_output": true}
+]

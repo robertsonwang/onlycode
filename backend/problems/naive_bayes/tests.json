@@ -1,0 +1,20 @@
+[
+  {"input": {"test": "priors_uniform"}, "expected_output": true},
+  {"input": {"test": "priors_imbalanced"}, "expected_output": true},
+  {"input": {"test": "priors_sum_to_one"}, "expected_output": true},
+  {"input": {"test": "class_stats_shape"}, "expected_output": true},
+  {"input": {"test": "class_stats_hand_computed"}, "expected_output": true},
+  {"input": {"test": "gaussian_log_likelihood_known_value"}, "expected_output": true},
+  {"input": {"test": "gaussian_log_likelihood_peak_at_mean"}, "expected_output": true},
+  {"input": {"test": "gaussian_log_likelihood_finite_small_var"}, "expected_output": true},
+  {"input": {"test": "log_posteriors_shape"}, "expected_output": true},
+  {"input": {"test": "log_posteriors_correct_class_highest"}, "expected_output": true},
+  {"input": {"test": "fit_returns_correct_keys"}, "expected_output": true},
+  {"input": {"test": "predict_shape_and_range"}, "expected_output": true},
+  {"input": {"test": "predict_separable_blobs"}, "expected_output": true},
+  {"input": {"test": "predict_three_class"}, "expected_output": true},
+  {"input": {"test": "accuracy_basic"}, "expected_output": true},
+  {"input": {"test": "accuracy_perfect"}, "expected_output": true},
+  {"input": {"test": "fit_and_evaluate_separable"}, "expected_output": true},
+  {"input": {"test": "fit_and_evaluate_three_class"}, "expected_output": true}
+]

@@ -38,24 +38,26 @@
       }
 
       .app {
-        max-width: 1300px;
-        margin: 0 auto;
-        padding: 1.2rem;
+        max-width: 100%;
+        margin: 0;
+        padding: 0.6rem;
         display: grid;
-        gap: 1rem;
+        gap: 0.5rem;
         grid-template-columns: 1fr;
+        height: 100vh;
+        grid-template-rows: auto 1fr;
       }
 
       .card {
         border: 1px solid var(--border);
         background: var(--panel);
         backdrop-filter: blur(8px);
-        border-radius: 16px;
-        box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
       }
 
       .header {
-        padding: 1rem 1.2rem;
+        padding: 0.5rem 0.8rem;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -106,19 +108,61 @@
       .main {
         display: grid;
         grid-template-columns: 1fr;
-        gap: 1rem;
+        gap: 0.5rem;
+        overflow: hidden;
+        min-height: 0;
       }
 
       .problem-panel,
       .editor-panel,
       .result-panel {
-        padding: 1rem;
+        padding: 0.7rem;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+      }
+
+      .resize-handle {
+        display: none;
+      }
+
+      @media (min-width: 980px) {
+        .resize-handle {
+          display: block;
+          width: 6px;
+          cursor: col-resize;
+          background: transparent;
+          position: relative;
+          z-index: 10;
+          border-radius: 3px;
+          transition: background 0.2s;
+        }
+
+        .resize-handle:hover,
+        .resize-handle.active {
+          background: var(--accent);
+        }
+      }
+
+      .resize-handle-h {
+        height: 6px;
+        cursor: row-resize;
+        background: transparent;
+        border-radius: 3px;
+        transition: background 0.2s;
+        grid-column: 1 / -1;
+      }
+
+      .resize-handle-h:hover,
+      .resize-handle-h.active {
+        background: var(--accent);
       }
 
       .problem-content {
-        max-height: 40vh;
         overflow: auto;
         line-height: 1.55;
+        flex: 1;
       }
 
       .problem-content h1,
@@ -180,19 +224,23 @@
       }
 
       #editor {
-        height: 52vh;
+        flex: 1;
+        min-height: 200px;
         border-radius: 12px;
         overflow: hidden;
         border: 1px solid var(--border);
       }
 
       .terminal-panel {
-        padding: 1rem;
+        padding: 0.7rem;
         display: none;
+        height: 350px;
+        min-height: 100px;
       }
 
       .terminal-panel.visible {
-        display: block;
+        display: flex;
+        flex-direction: column;
       }
 
       .terminal-header {
@@ -214,7 +262,8 @@
       }
 
       #terminal-container {
-        height: 350px;
+        flex: 1;
+        min-height: 100px;
         border-radius: 10px;
         overflow: hidden;
         background: #1e1e1e;
@@ -223,6 +272,17 @@
 
       .btn-debug {
         background: linear-gradient(120deg, var(--accent-2), #f59e0b);
+      }
+
+      .result-panel {
+        height: 250px;
+        min-height: 80px;
+      }
+
+      #resultTable {
+        overflow: auto;
+        flex: 1;
+        min-height: 0;
       }
 
       .result-head {
@@ -270,7 +330,23 @@
 
       @media (min-width: 980px) {
         .main {
-          grid-template-columns: 0.95fr 1.05fr;
+          grid-template-columns: 1fr 6px 1fr;
+          grid-template-rows: 1fr auto auto;
+        }
+
+        .problem-panel {
+          grid-column: 1;
+          grid-row: 1;
+        }
+
+        .resize-handle {
+          grid-column: 2;
+          grid-row: 1;
+        }
+
+        .editor-panel {
+          grid-column: 3;
+          grid-row: 1;
         }
 
         .result-panel,
@@ -295,18 +371,22 @@
       </section>
 
       <section class="main">
-        <article class="card problem-panel">
+        <article class="card problem-panel" id="problemPanel">
           <h2>Problem</h2>
           <div id="problemMeta"></div>
           <div id="problemContent" class="problem-content">Loading...</div>
         </article>
 
-        <article class="card editor-panel">
+        <div class="resize-handle" id="resizeHandle"></div>
+
+        <article class="card editor-panel" id="editorPanel">
           <h2>Code Editor</h2>
           <div id="editor"></div>
         </article>
 
-        <article class="card result-panel">
+        <div class="resize-handle-h" id="resizeHandleResult"></div>
+
+        <article class="card result-panel" id="resultPanel">
           <div class="result-head">
             <h2>Results</h2>
             <span id="statusBadge" class="badge">Not run</span>
@@ -314,6 +394,8 @@
           <div id="errorBox" class="error"></div>
           <div id="resultTable">Run your code to see testcase results.</div>
         </article>
+
+        <div class="resize-handle-h" id="resizeHandleTerminal"></div>
 
         <article class="card terminal-panel" id="terminalPanel">
           <div class="terminal-header">
@@ -326,10 +408,12 @@
     </div>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xterm/xterm@5.5.0/css/xterm.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/@xterm/xterm@5.5.0/lib/xterm.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@xterm/addon-fit@0.10.0/lib/addon-fit.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.52.2/min/vs/loader.min.js"></script>
     <script>
       const API_BASE = "http://127.0.0.1:8000";
@@ -425,6 +509,7 @@
         problemMetaEl.textContent = `${data.title} | Difficulty: ${data.difficulty}`;
         const renderedHtml = marked.parse(data.problem_markdown || "");
         problemContentEl.innerHTML = DOMPurify.sanitize(renderedHtml);
+        renderLatex(problemContentEl);
 
         // Restore saved code or use starter
         const savedCode = localStorage.getItem(`code_${data.id}`);
@@ -609,6 +694,102 @@
 
       debugBtn.addEventListener("click", openDebugTerminal);
       terminalCloseBtn.addEventListener("click", closeDebugTerminal);
+
+      // --- LaTeX rendering with KaTeX ---
+      function renderLatex(el) {
+        // Block math: $$...$$
+        el.innerHTML = el.innerHTML.replace(/\$\$([\s\S]*?)\$\$/g, (match, tex) => {
+          try {
+            return katex.renderToString(tex.trim(), { displayMode: true, throwOnError: false });
+          } catch (e) { return match; }
+        });
+        // Inline math: $...$  (not preceded/followed by $)
+        el.innerHTML = el.innerHTML.replace(/(?<!\$)\$(?!\$)([^$\n]+?)\$(?!\$)/g, (match, tex) => {
+          try {
+            return katex.renderToString(tex.trim(), { displayMode: false, throwOnError: false });
+          } catch (e) { return match; }
+        });
+      }
+
+      // --- Resizable panels ---
+      (function setupResize() {
+        const handle = document.getElementById("resizeHandle");
+        const main = document.querySelector(".main");
+        if (!handle) return;
+
+        let dragging = false;
+
+        handle.addEventListener("mousedown", (e) => {
+          e.preventDefault();
+          dragging = true;
+          handle.classList.add("active");
+          document.body.style.cursor = "col-resize";
+          document.body.style.userSelect = "none";
+        });
+
+        document.addEventListener("mousemove", (e) => {
+          if (!dragging) return;
+          const rect = main.getBoundingClientRect();
+          const offset = e.clientX - rect.left;
+          const pct = (offset / rect.width) * 100;
+          if (pct > 20 && pct < 80) {
+            main.style.gridTemplateColumns = `${pct}% 6px 1fr`;
+            if (editor) editor.layout();
+          }
+        });
+
+        document.addEventListener("mouseup", () => {
+          if (dragging) {
+            dragging = false;
+            handle.classList.remove("active");
+            document.body.style.cursor = "";
+            document.body.style.userSelect = "";
+          }
+        });
+      })();
+
+      // --- Vertical resize for result and terminal panels ---
+      function setupVerticalResize(handleId, panelId, onResize) {
+        const handle = document.getElementById(handleId);
+        const panel = document.getElementById(panelId);
+        if (!handle || !panel) return;
+
+        let dragging = false;
+        let startY = 0;
+        let startHeight = 0;
+
+        handle.addEventListener("mousedown", (e) => {
+          e.preventDefault();
+          dragging = true;
+          startY = e.clientY;
+          startHeight = panel.getBoundingClientRect().height;
+          handle.classList.add("active");
+          document.body.style.cursor = "row-resize";
+          document.body.style.userSelect = "none";
+        });
+
+        document.addEventListener("mousemove", (e) => {
+          if (!dragging) return;
+          const delta = e.clientY - startY;
+          const newHeight = Math.max(80, startHeight + delta);
+          panel.style.height = newHeight + "px";
+          if (onResize) onResize();
+        });
+
+        document.addEventListener("mouseup", () => {
+          if (dragging) {
+            dragging = false;
+            handle.classList.remove("active");
+            document.body.style.cursor = "";
+            document.body.style.userSelect = "";
+          }
+        });
+      }
+
+      setupVerticalResize("resizeHandleResult", "resultPanel");
+      setupVerticalResize("resizeHandleTerminal", "terminalPanel", () => {
+        if (fitAddon) fitAddon.fit();
+      });
 
       initEditor();
     </script>

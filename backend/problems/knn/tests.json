@@ -1,0 +1,20 @@
+[
+  {"input": {"test": "euclidean_distances_hand_computed"}, "expected_output": true},
+  {"input": {"test": "euclidean_distances_self_zero_diagonal"}, "expected_output": true},
+  {"input": {"test": "euclidean_distances_shape"}, "expected_output": true},
+  {"input": {"test": "find_k_neighbors_hand_computed"}, "expected_output": true},
+  {"input": {"test": "find_k_neighbors_shape"}, "expected_output": true},
+  {"input": {"test": "predict_simple_case"}, "expected_output": true},
+  {"input": {"test": "predict_majority_vote"}, "expected_output": true},
+  {"input": {"test": "predict_tiebreak_smaller_label"}, "expected_output": true},
+  {"input": {"test": "predict_perfect_on_separable_blobs"}, "expected_output": true},
+  {"input": {"test": "accuracy_basic"}, "expected_output": true},
+  {"input": {"test": "accuracy_perfect"}, "expected_output": true},
+  {"input": {"test": "kfold_split_covers_all_indices"}, "expected_output": true},
+  {"input": {"test": "kfold_split_no_overlap"}, "expected_output": true},
+  {"input": {"test": "kfold_split_fold_sizes"}, "expected_output": true},
+  {"input": {"test": "cross_val_accuracy_on_separable_data"}, "expected_output": true},
+  {"input": {"test": "cross_val_accuracy_reproducible"}, "expected_output": true},
+  {"input": {"test": "best_k_selects_good_k"}, "expected_output": true},
+  {"input": {"test": "best_k_tiebreak_smaller"}, "expected_output": true}
+]

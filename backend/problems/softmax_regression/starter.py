@@ -127,9 +127,6 @@ def compute_gradient(X, y, W):
     Hint:
         1. Compute probabilities = softmax(X @ W).
         2. One-hot encode y.
-        3. The gradient is:
-
-               (1 / n_samples) * X.T @ (probabilities - y_one_hot)
     """
     # TODO: implement
     raise NotImplementedError
@@ -354,7 +351,10 @@ def solve(input_data):
         grad = compute_gradient(X, y, W)
         assert grad.shape == (2, 3)
         return True
-
+    """
+    The gradient is (1 / n_samples) * X.T @ (probabilities - y_one_hot)
+    """
+               
     if test_name == "compute_gradient_numeric_check":
         rng = np.random.default_rng(42)
         X = rng.normal(size=(10, 3))

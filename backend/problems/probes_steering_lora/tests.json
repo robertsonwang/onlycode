@@ -1,0 +1,13 @@
+[
+  {"input": {"test": "standardizer_uses_train_stats"}, "expected_output": true},
+  {"input": {"test": "standardizer_handles_constant_columns"}, "expected_output": true},
+  {"input": {"test": "probe_learns_separable_data"}, "expected_output": true},
+  {"input": {"test": "probe_shapes_and_predictions"}, "expected_output": true},
+  {"input": {"test": "mean_difference_direction_known"}, "expected_output": true},
+  {"input": {"test": "steering_is_vectorized_and_pure"}, "expected_output": true},
+  {"input": {"test": "projection_removes_direction"}, "expected_output": true},
+  {"input": {"test": "ablation_reduces_probe_accuracy"}, "expected_output": true},
+  {"input": {"test": "lora_delta_matches_formula"}, "expected_output": true},
+  {"input": {"test": "representation_shift_metrics_known"}, "expected_output": true},
+  {"input": {"test": "layerwise_lora_shift_scan"}, "expected_output": true}
+]

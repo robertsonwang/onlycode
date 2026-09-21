@@ -1,0 +1,10 @@
+[
+  {"input": {"test": "cuda_is_required"}, "expected_output": true},
+  {"input": {"test": "padding_device_dtype_and_values"}, "expected_output": true},
+  {"input": {"test": "masked_mean_ignores_padding"}, "expected_output": true},
+  {"input": {"test": "extract_is_detached_cpu_float32"}, "expected_output": true},
+  {"input": {"test": "extract_handles_tuple_output"}, "expected_output": true},
+  {"input": {"test": "hook_cleanup_after_failure"}, "expected_output": true},
+  {"input": {"test": "streaming_shapes_order_and_forward_count"}, "expected_output": true},
+  {"input": {"test": "streaming_matches_full_batch"}, "expected_output": true}
+]

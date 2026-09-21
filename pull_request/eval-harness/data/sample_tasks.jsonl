@@ -1,0 +1,4 @@
+{"id": "mc-1", "prompt": "Which gas do plants absorb from the atmosphere for photosynthesis? A) Oxygen B) Carbon Dioxide C) Nitrogen D) Hydrogen", "reference": "B", "choices": ["Oxygen", "Carbon Dioxide", "Nitrogen", "Hydrogen"]}
+{"id": "mc-2", "prompt": "What is the capital of France? A) Berlin B) Madrid C) Paris D) Rome", "reference": "C", "choices": ["Berlin", "Madrid", "Paris", "Rome"]}
+{"id": "em-1", "prompt": "What is 2 + 2?", "reference": "4"}
+{"id": "em-2", "prompt": "What is the chemical symbol for gold?", "reference": "Au"}

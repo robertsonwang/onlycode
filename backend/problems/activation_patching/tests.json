@@ -1,0 +1,10 @@
+[
+  {"input": {"test": "logit_difference_final_position"}, "expected_output": true},
+  {"input": {"test": "patch_positions_selective_and_pure"}, "expected_output": true},
+  {"input": {"test": "patch_all_matches_clean_activation"}, "expected_output": true},
+  {"input": {"test": "single_layer_effect_matches_manual_run"}, "expected_output": true},
+  {"input": {"test": "no_positions_has_zero_recovery"}, "expected_output": true},
+  {"input": {"test": "scan_layers_shape_and_values"}, "expected_output": true},
+  {"input": {"test": "normalized_recovery_known"}, "expected_output": true},
+  {"input": {"test": "normalized_recovery_is_finite"}, "expected_output": true}
+]

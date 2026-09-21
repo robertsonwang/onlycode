@@ -1,0 +1,11 @@
+[
+  {"input": {"test": "init_shapes_and_reproducibility"}, "expected_output": true},
+  {"input": {"test": "forward_shapes_and_nonnegative_features"}, "expected_output": true},
+  {"input": {"test": "loss_components_known"}, "expected_output": true},
+  {"input": {"test": "gradient_shapes"}, "expected_output": true},
+  {"input": {"test": "gradient_check"}, "expected_output": true},
+  {"input": {"test": "normalize_decoder_rows"}, "expected_output": true},
+  {"input": {"test": "training_reduces_total_loss"}, "expected_output": true},
+  {"input": {"test": "feature_statistics_known"}, "expected_output": true},
+  {"input": {"test": "sparsity_penalty_reduces_activity"}, "expected_output": true}
+]

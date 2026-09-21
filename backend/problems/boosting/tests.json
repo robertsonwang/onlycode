@@ -1,0 +1,15 @@
+[
+  {"input": {"test": "weighted_error_zero"}, "expected_output": true},
+  {"input": {"test": "weighted_error_known"}, "expected_output": true},
+  {"input": {"test": "stump_predict_polarity_plus"}, "expected_output": true},
+  {"input": {"test": "stump_predict_polarity_minus"}, "expected_output": true},
+  {"input": {"test": "best_stump_obvious"}, "expected_output": true},
+  {"input": {"test": "best_stump_none_when_no_threshold"}, "expected_output": true},
+  {"input": {"test": "compute_alpha_known"}, "expected_output": true},
+  {"input": {"test": "compute_alpha_clips_extremes"}, "expected_output": true},
+  {"input": {"test": "update_weights_emphasizes_mistakes"}, "expected_output": true},
+  {"input": {"test": "fit_adaboost_model_shapes"}, "expected_output": true},
+  {"input": {"test": "fit_adaboost_improves_training_accuracy"}, "expected_output": true},
+  {"input": {"test": "predict_scores_and_labels_shapes"}, "expected_output": true},
+  {"input": {"test": "generalization_reasonable_on_clean_data"}, "expected_output": true}
+]

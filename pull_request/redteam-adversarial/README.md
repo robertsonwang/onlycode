@@ -16,6 +16,9 @@ without needing a real model or GPU.
   classifier's score below a threshold.
 - `src/redteam_adversarial/metrics.py` -- `attack_success_rate`,
   `mean_substitutions`, `mean_score_drop` over a batch of `AttackResult`s.
+- `src/redteam_adversarial/batch.py` -- load prompts and synonym overrides
+  from disk and run the attack over a whole file at once: `load_prompts`,
+  `load_synonym_overrides`, `run_batch_attack`, `rank_results`.
 
 ## Usage
 
@@ -23,7 +26,17 @@ without needing a real model or GPU.
 uv sync
 uv run pytest
 uv run python examples/run_attack.py
+uv run python examples/run_batch.py
 ```
+
+### Batch attacks
+
+`data/prompts.txt` holds one prompt per line; `data/synonym_overrides.txt`
+holds one substitution rule per line. `run_batch_attack` runs every prompt
+through `greedy_word_substitution_attack` and returns a list of
+`AttackResult`s; pass `max_substitutions=None` for no cap on the number of
+substitutions tried per prompt. `rank_results` returns the `top_k` attacks
+with the largest score drop, most effective first.
 
 ```python
 from redteam_adversarial import ToySafetyClassifier, greedy_word_substitution_attack

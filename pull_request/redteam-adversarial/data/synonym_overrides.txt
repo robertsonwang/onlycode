@@ -1,0 +1,6 @@
+{"bomb": ["cake", "sandcastle"]}
+{"hack": ["access", "log into"]}
+{"poison": ["season", "flavor"]}
+{"steal": ["borrow"]}
+{"kill": ["surprise"]}
+{"weapon": ["tool", "gadget"]}

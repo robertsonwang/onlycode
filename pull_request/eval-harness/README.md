@@ -12,6 +12,13 @@ plugged in; `DummyModel` is a deterministic stand-in for tests and demos.
 - `src/eval_harness/scoring.py` -- pluggable scorers (`exact_match`,
   `multiple_choice`, `keyword_rubric`), registered by name.
 - `src/eval_harness/runner.py` -- `run_eval(task, model) -> EvalResult`.
+- `src/eval_harness/caching.py` -- `CachingModel`, a `ModelClient` wrapper
+  that memoizes completions by prompt text so repeated prompts don't
+  re-hit the underlying model.
+- `src/eval_harness/sampling.py` -- `sample_examples(task, n, seed=None)`,
+  for quick reproducible smoke-test runs over a subset of a task.
+- `src/eval_harness/export.py` -- `export_results_to_csv(result, path)`,
+  for handing eval results off to a spreadsheet-based review.
 - `data/sample_tasks.jsonl` -- a handful of example tasks.
 
 ## Usage
@@ -20,6 +27,7 @@ plugged in; `DummyModel` is a deterministic stand-in for tests and demos.
 uv sync
 uv run pytest
 uv run python examples/run_sample_eval.py
+uv run python examples/run_export_demo.py
 ```
 
 ```python

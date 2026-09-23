@@ -60,3 +60,18 @@ def keyword_rubric(response: str, example: Example) -> float:
     normalized_response = _normalize(response)
     hits = sum(1 for kw in keywords if _normalize(kw) in normalized_response)
     return hits / len(keywords)
+
+
+@register_scorer("numeric_tolerance")
+def numeric_tolerance(response: str, example: Example) -> float:
+    """1.0 if `response` parses to a number within 1e-3 of `example.reference`, else 0.0.
+
+    `example.metadata["tolerance"]` overrides the default tolerance if present.
+    """
+    tolerance = example.metadata.get("tolerance", 1e-3)
+    try:
+        predicted = float(response.strip())
+        target = float(example.reference.strip())
+    except ValueError:
+        return None
+    return 1.0 if abs(predicted - target) <= tolerance else 0.0

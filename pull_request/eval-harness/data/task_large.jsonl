@@ -1,0 +1,8 @@
+{"id": "l1", "prompt": "What is 12.5% of 480?", "reference": "60"}
+{"id": "l2", "prompt": "What is the square root of 144?", "reference": "12"}
+{"id": "l3", "prompt": "What is 17 * 23?", "reference": "391"}
+{"id": "l4", "prompt": "What is 9 factorial divided by 8 factorial?", "reference": "9"}
+{"id": "l5", "prompt": "What is the sum of the first 10 positive integers?", "reference": "55"}
+{"id": "l6", "prompt": "What is 3 to the power of 5?", "reference": "243"}
+{"id": "l7", "prompt": "What is 1000 divided by 8?", "reference": "125"}
+{"id": "l8", "prompt": "What is 7 squared plus 1?", "reference": "50"}

@@ -1,4 +1,4 @@
-from eval_harness.scoring import exact_match, keyword_rubric, multiple_choice
+from eval_harness.scoring import exact_match, keyword_rubric, multiple_choice, numeric_tolerance
 from eval_harness.tasks import Example
 
 
@@ -37,3 +37,14 @@ def test_keyword_rubric_partial_credit():
 
     partial = keyword_rubric("We use the chain rule.", ex)
     assert abs(partial - 1 / 3) < 1e-9
+
+
+def test_numeric_tolerance_accepts_close_values():
+    ex = Example(example_id="1", prompt="p", reference="60")
+    assert numeric_tolerance("60", ex) == 1.0
+    assert numeric_tolerance("59.9", ex) == 0.0
+
+
+def test_numeric_tolerance_respects_metadata_override():
+    ex = Example(example_id="1", prompt="p", reference="60", metadata={"tolerance": 1.0})
+    assert numeric_tolerance("60.5", ex) == 1.0

@@ -10,9 +10,15 @@ plugged in; `DummyModel` is a deterministic stand-in for tests and demos.
 - `src/eval_harness/tasks.py` -- `Example`, `Task`, and a JSONL loader.
 - `src/eval_harness/model_interface.py` -- `ModelClient` protocol + `DummyModel`.
 - `src/eval_harness/scoring.py` -- pluggable scorers (`exact_match`,
-  `multiple_choice`, `keyword_rubric`), registered by name.
+  `multiple_choice`, `keyword_rubric`, `numeric_tolerance`), registered by name.
 - `src/eval_harness/runner.py` -- `run_eval(task, model) -> EvalResult`.
+- `src/eval_harness/suite.py` -- `run_suite(tasks, model, max_retries=2, log_path=None) -> SuiteResult`:
+  runs a model over several tasks at once, retrying flaky model calls up to
+  `max_retries` times, and optionally appending a transcript of every
+  prompt/response pair to `log_path` for debugging.
 - `data/sample_tasks.jsonl` -- a handful of example tasks.
+- `data/task_small.jsonl`, `data/task_large.jsonl` -- two tasks of
+  different sizes, used to demo `run_suite`.
 
 ## Usage
 
@@ -20,6 +26,7 @@ plugged in; `DummyModel` is a deterministic stand-in for tests and demos.
 uv sync
 uv run pytest
 uv run python examples/run_sample_eval.py
+uv run python examples/run_suite.py
 ```
 
 ```python

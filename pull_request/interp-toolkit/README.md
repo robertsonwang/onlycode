@@ -17,8 +17,17 @@ causal-intervention *plumbing*, not to train a real model.
   during a forward pass).
 - `src/interp_toolkit/metrics.py` -- `logit_diff`, `kl_divergence`,
   `patching_effect`.
+- `src/interp_toolkit/attribution.py` -- `per_layer_logit_attribution`
+  (decompose the final logit diff into each layer's contribution) and
+  `layer_ablation_sweep` (mean-ablate each layer in turn and measure the
+  effect on `logit_diff`).
+- `src/interp_toolkit/cache_io.py` -- `save_cache` / `load_cache`, so an
+  activation cache from `run_with_cache` can be reused across sessions
+  without re-running the forward pass.
 - `examples/run_patching.py` -- an end-to-end activation-patching sweep
   across layers.
+- `examples/run_attribution.py` -- direct logit attribution + an ablation
+  sweep, with the cache round-tripped through disk.
 
 ## Usage
 
@@ -26,6 +35,7 @@ causal-intervention *plumbing*, not to train a real model.
 uv sync
 uv run pytest
 uv run python examples/run_patching.py
+uv run python examples/run_attribution.py
 ```
 
 ```python

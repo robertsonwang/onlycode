@@ -17,8 +17,15 @@ causal-intervention *plumbing*, not to train a real model.
   during a forward pass).
 - `src/interp_toolkit/metrics.py` -- `logit_diff`, `kl_divergence`,
   `patching_effect`.
+- `src/interp_toolkit/steering.py` -- contrastive activation steering:
+  `compute_steering_vector` (extract a direction from contrastive prompt
+  pairs), `generate_with_steering` / `steering_sweep` (apply it, at one
+  coefficient or several), and `save_steering_vector` / `load_steering_vector`
+  to persist a named direction to disk.
 - `examples/run_patching.py` -- an end-to-end activation-patching sweep
   across layers.
+- `examples/run_steering.py` -- extract a steering direction, round-trip
+  it through disk, and sweep coefficients.
 
 ## Usage
 
@@ -26,6 +33,7 @@ causal-intervention *plumbing*, not to train a real model.
 uv sync
 uv run pytest
 uv run python examples/run_patching.py
+uv run python examples/run_steering.py
 ```
 
 ```python

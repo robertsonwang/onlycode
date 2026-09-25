@@ -17,8 +17,14 @@ causal-intervention *plumbing*, not to train a real model.
   during a forward pass).
 - `src/interp_toolkit/metrics.py` -- `logit_diff`, `kl_divergence`,
   `patching_effect`.
+- `src/interp_toolkit/probing.py` -- linear probing: `train_linear_probe` /
+  `evaluate_probe` (fit and score a probe on cached activations),
+  `label_examples_by_keyword_pattern` (quick regex-based labeling), and
+  `probe_accuracy_by_layer` (probe every layer at once).
 - `examples/run_patching.py` -- an end-to-end activation-patching sweep
   across layers.
+- `examples/run_probing.py` -- label a few texts by keyword and probe
+  each layer's residual stream for that label.
 
 ## Usage
 
@@ -26,6 +32,7 @@ causal-intervention *plumbing*, not to train a real model.
 uv sync
 uv run pytest
 uv run python examples/run_patching.py
+uv run python examples/run_probing.py
 ```
 
 ```python

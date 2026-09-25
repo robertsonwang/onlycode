@@ -12,6 +12,10 @@ plugged in; `DummyModel` is a deterministic stand-in for tests and demos.
 - `src/eval_harness/scoring.py` -- pluggable scorers (`exact_match`,
   `multiple_choice`, `keyword_rubric`), registered by name.
 - `src/eval_harness/runner.py` -- `run_eval(task, model) -> EvalResult`.
+- `src/eval_harness/llm_judge.py` -- score free-form responses with a
+  second "judge" model: `build_judge_prompt`, `parse_judge_score`,
+  `judge_score`, and `judge_score_with_consistency` (average over several
+  judge calls to reduce judge variance).
 - `data/sample_tasks.jsonl` -- a handful of example tasks.
 
 ## Usage
@@ -20,6 +24,7 @@ plugged in; `DummyModel` is a deterministic stand-in for tests and demos.
 uv sync
 uv run pytest
 uv run python examples/run_sample_eval.py
+uv run python examples/run_llm_judge.py
 ```
 
 ```python

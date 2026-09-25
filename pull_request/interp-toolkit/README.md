@@ -17,8 +17,14 @@ causal-intervention *plumbing*, not to train a real model.
   during a forward pass).
 - `src/interp_toolkit/metrics.py` -- `logit_diff`, `kl_divergence`,
   `patching_effect`.
+- `src/interp_toolkit/sae.py` -- a minimal sparse autoencoder:
+  `SparseAutoencoder` (encode/decode/forward), `sae_loss`,
+  `top_activating_examples`, and `export_feature_dashboard_html` for
+  inspecting what a feature responds to.
 - `examples/run_patching.py` -- an end-to-end activation-patching sweep
   across layers.
+- `examples/run_sae.py` -- train a tiny SAE on cached activations and
+  export a feature dashboard.
 
 ## Usage
 
@@ -26,6 +32,7 @@ causal-intervention *plumbing*, not to train a real model.
 uv sync
 uv run pytest
 uv run python examples/run_patching.py
+uv run python examples/run_sae.py
 ```
 
 ```python

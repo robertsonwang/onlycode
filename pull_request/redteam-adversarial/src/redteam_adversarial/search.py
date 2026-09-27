@@ -12,7 +12,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from redteam_adversarial.target import ToySafetyClassifier, tokenize
+from redteam_adversarial.target import SafetyClassifier, tokenize
 
 
 @dataclass(frozen=True)
@@ -32,7 +32,7 @@ def _apply_substitution(tokens: list[str], index: int, replacement: str) -> list
 
 
 def greedy_word_substitution_attack(
-    classifier: ToySafetyClassifier,
+    classifier: SafetyClassifier,
     text: str,
     synonym_map: dict[str, list[str]],
     threshold: float = 0.5,

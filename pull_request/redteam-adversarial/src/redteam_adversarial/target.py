@@ -11,6 +11,7 @@ from __future__ import annotations
 import math
 import re
 from dataclasses import dataclass, field
+from typing import Protocol
 
 _DEFAULT_UNSAFE_WORDS = {
     "bomb": 3.0,
@@ -22,6 +23,12 @@ _DEFAULT_UNSAFE_WORDS = {
     "kill": 2.0,
     "steal": 1.0,
 }
+
+
+class SafetyClassifier(Protocol):
+    """Anything that maps text to P(unsafe) can be attacked."""
+
+    def unsafe_probability(self, text: str) -> float: ...
 
 
 def tokenize(text: str) -> list[str]:

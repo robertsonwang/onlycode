@@ -1,5 +1,6 @@
 from interp_toolkit.hooks import HookPoint, run_with_cache, run_with_patch
 from interp_toolkit.model import MiniTransformer, ModelConfig
+from interp_toolkit.sampling import sample_next_token
 
 __all__ = [
     "HookPoint",
@@ -7,4 +8,5 @@ __all__ = [
     "run_with_patch",
     "MiniTransformer",
     "ModelConfig",
+    "sample_next_token",
 ]

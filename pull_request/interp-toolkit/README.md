@@ -17,6 +17,8 @@ causal-intervention *plumbing*, not to train a real model.
   during a forward pass).
 - `src/interp_toolkit/metrics.py` -- `logit_diff`, `kl_divergence`,
   `patching_effect`.
+- `src/interp_toolkit/sampling.py` -- `sample_next_token` with temperature,
+  top-k, and top-p (nucleus) filtering.
 - `examples/run_patching.py` -- an end-to-end activation-patching sweep
   across layers.
 

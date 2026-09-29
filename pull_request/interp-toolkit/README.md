@@ -16,10 +16,9 @@ causal-intervention *plumbing*, not to train a real model.
   point's activation) and `run_with_patch` (overwrite specific hook points
   during a forward pass).
 - `src/interp_toolkit/metrics.py` -- `logit_diff`, `kl_divergence`,
-  `patching_effect`, plus `sequence_log_probs` and `perplexity` (with an
-  optional padding mask).
-- `src/interp_toolkit/sampling.py` -- `sample_next_token` (temperature,
-  top-k, top-p) and `generate` for autoregressive sampling.
+  `patching_effect`.
+- `src/interp_toolkit/sampling.py` -- `sample_next_token` with temperature,
+  top-k, and top-p (nucleus) filtering.
 - `examples/run_patching.py` -- an end-to-end activation-patching sweep
   across layers.
 
@@ -29,7 +28,6 @@ causal-intervention *plumbing*, not to train a real model.
 uv sync
 uv run pytest
 uv run python examples/run_patching.py
-uv run python examples/run_generation.py
 ```
 
 ```python
@@ -43,12 +41,3 @@ patched_logits = run_with_patch(model, tokens, {"blocks.0.hook_resid_post": some
 
 Hook names follow `blocks.{layer}.<point>`, e.g. `blocks.0.hook_resid_pre`,
 `blocks.1.attn.hook_pattern`, `blocks.1.mlp.hook_post`.
-
-### Sampling and perplexity
-
-```python
-from interp_toolkit import generate, perplexity
-
-out = generate(model, prompt, max_new_tokens=8, temperature=0.8, top_k=10, top_p=0.9)
-ppl = perplexity(model(out), out)
-```

@@ -1,12 +1,6 @@
 import torch
 
-from interp_toolkit.metrics import (
-    kl_divergence,
-    logit_diff,
-    patching_effect,
-    perplexity,
-    sequence_log_probs,
-)
+from interp_toolkit.metrics import kl_divergence, logit_diff, patching_effect
 
 
 def test_logit_diff_basic():
@@ -28,31 +22,3 @@ def test_patching_effect_bounds():
     corrupted = torch.tensor([0.0])
     assert torch.allclose(patching_effect(baseline, baseline, corrupted), torch.tensor([1.0]))
     assert torch.allclose(patching_effect(baseline, corrupted, corrupted), torch.tensor([0.0]))
-
-
-def test_sequence_log_probs_shape_and_alignment():
-    logits = torch.zeros(1, 3, 4)
-    logits[0, 0, 2] = 10.0  # position 0 confidently predicts token 2
-    tokens = torch.tensor([[0, 2, 1]])
-    lp = sequence_log_probs(logits, tokens)
-    assert lp.shape == (1, 2)
-    assert lp[0, 0] > -1e-3
-
-
-def test_perplexity_of_uniform_logits_is_vocab_size():
-    logits = torch.zeros(2, 5, 7)
-    tokens = torch.randint(0, 7, (2, 5))
-    assert torch.allclose(perplexity(logits, tokens), torch.tensor(7.0))
-
-
-def test_perplexity_ignores_padding():
-    torch.manual_seed(0)
-    logits = torch.randn(2, 6, 10)
-    tokens = torch.randint(0, 10, (2, 6))
-    mask = torch.ones(2, 6)
-    mask[1, 4:] = 0
-
-    ppl = perplexity(logits, tokens, attention_mask=mask)
-
-    assert torch.isfinite(ppl)
-    assert ppl > 1.0

@@ -1,14 +1,12 @@
-"""Autoregressive sampling from a `MiniTransformer`.
+"""Next-token sampling from final-position logits.
 
-`sample_next_token` turns final-position logits into a token id, with the
-usual knobs: temperature, top-k, and top-p (nucleus) filtering. `generate`
-calls it in a loop, appending one token per step.
+`sample_next_token` turns logits into a token id, with the usual knobs:
+temperature, top-k, and top-p (nucleus) filtering.
 """
 
 from __future__ import annotations
 
 import torch
-import torch.nn as nn
 
 
 def softmax_with_temperature(logits: torch.Tensor, temperature: float = 1.0) -> torch.Tensor:
@@ -58,26 +56,3 @@ def sample_next_token(
     probs = softmax_with_temperature(logits)
     return torch.multinomial(probs, num_samples=1, generator=generator).squeeze(-1)
 
-
-@torch.no_grad()
-def generate(
-    model: nn.Module,
-    prompt: torch.Tensor,
-    max_new_tokens: int,
-    temperature: float = 1.0,
-    top_k: int | None = None,
-    top_p: float | None = None,
-    generator: torch.Generator | None = None,
-) -> torch.Tensor:
-    """Extend `prompt` ([batch, seq]) by `max_new_tokens` sampled tokens.
-
-    Returns a [batch, seq + max_new_tokens] tensor that starts with `prompt`.
-    """
-    tokens = prompt
-    for _ in range(max_new_tokens):
-        logits = model(tokens)[:, -1, :]
-        next_token = sample_next_token(
-            logits, temperature=temperature, top_k=top_k, top_p=top_p, generator=generator
-        )
-        tokens = torch.cat([tokens, next_token[:, None]], dim=1)
-    return tokens

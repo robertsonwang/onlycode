@@ -1,20 +1,11 @@
-import math
-
 import torch
 
-from interp_toolkit.model import MiniTransformer, ModelConfig
 from interp_toolkit.sampling import (
-    generate,
     sample_next_token,
     softmax_with_temperature,
     top_k_filter,
     top_p_filter,
 )
-
-
-def make_model(seed: int = 0) -> MiniTransformer:
-    torch.manual_seed(seed)
-    return MiniTransformer(ModelConfig(n_layers=2, d_model=32, n_heads=4, d_vocab=64, n_ctx=16))
 
 
 def test_softmax_matches_torch():
@@ -49,19 +40,3 @@ def test_filtered_tokens_are_never_sampled():
     samples = {sample_next_token(logits, top_k=2, generator=gen).item() for _ in range(200)}
     assert samples <= {1, 4}
 
-
-def test_generate_appends_tokens_and_keeps_prompt():
-    model = make_model()
-    prompt = torch.randint(0, model.cfg.d_vocab, (1, 4))
-    out = generate(model, prompt, max_new_tokens=5, generator=torch.Generator().manual_seed(0))
-    assert out.shape == (1, 9)
-    assert torch.equal(out[:, :4], prompt)
-
-
-def test_generate_is_reproducible_with_generator():
-    model = make_model()
-    prompt = torch.randint(0, model.cfg.d_vocab, (1, 4))
-    a = generate(model, prompt, 6, top_p=0.9, generator=torch.Generator().manual_seed(1))
-    b = generate(model, prompt, 6, top_p=0.9, generator=torch.Generator().manual_seed(1))
-    assert torch.equal(a, b)
-    assert not math.isnan(a.float().sum().item())

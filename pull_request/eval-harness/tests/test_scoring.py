@@ -1,4 +1,6 @@
-from eval_harness.scoring import exact_match, keyword_rubric, multiple_choice
+import pytest
+
+from eval_harness.scoring import exact_match, keyword_rubric, multiple_choice, numeric_match
 from eval_harness.tasks import Example
 
 
@@ -37,3 +39,21 @@ def test_keyword_rubric_partial_credit():
 
     partial = keyword_rubric("We use the chain rule.", ex)
     assert abs(partial - 1 / 3) < 1e-9
+
+
+@pytest.mark.parametrize(
+    "response, reference, expected",
+    [
+        ("4", "4", 1.0),
+        ("The answer is 7.", "7", 1.0),
+        ("3 + 4 = 7", "7", 1.0),
+        ("about 1,000 people", "1000", 1.0),
+        ("100.5", "100", 1.0),
+        ("-12", "12", 1.0),
+        ("5", "7", 0.0),
+        ("no idea", "7", 0.0),
+    ],
+)
+def test_numeric_match(response, reference, expected):
+    example = Example(example_id="n", prompt="q", reference=reference)
+    assert numeric_match(response, example) == expected

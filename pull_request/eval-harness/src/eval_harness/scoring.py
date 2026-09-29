@@ -60,3 +60,27 @@ def keyword_rubric(response: str, example: Example) -> float:
     normalized_response = _normalize(response)
     hits = sum(1 for kw in keywords if _normalize(kw) in normalized_response)
     return hits / len(keywords)
+
+
+_NUMBER = re.compile(r"\d+(?:\.\d+)?")
+
+
+def _extract_number(text: str) -> float | None:
+    """Return the last number mentioned in `text`, or None if there isn't one."""
+    matches = _NUMBER.findall(text.replace(",", ""))
+    return float(matches[-1]) if matches else None
+
+
+@register_scorer("numeric_match")
+def numeric_match(response: str, example: Example, rel_tol: float = 1e-2) -> float:
+    """1.0 if the last number in the response is within `rel_tol` relative
+    error of the numeric reference, else 0.0.
+
+    Uses the last number so that worked answers ("3 + 4 = 7") score on the
+    final result.
+    """
+    predicted = _extract_number(response)
+    if predicted is None:
+        return 0.0
+    reference = float(example.reference)
+    return 1.0 if abs(predicted - reference) / abs(reference) <= rel_tol else 0.0

@@ -10,8 +10,9 @@ plugged in; `DummyModel` is a deterministic stand-in for tests and demos.
 - `src/eval_harness/tasks.py` -- `Example`, `Task`, and a JSONL loader.
 - `src/eval_harness/model_interface.py` -- `ModelClient` protocol + `DummyModel`.
 - `src/eval_harness/scoring.py` -- pluggable scorers (`exact_match`,
-  `multiple_choice`, `keyword_rubric`), registered by name.
-- `src/eval_harness/runner.py` -- `run_eval(task, model) -> EvalResult`.
+  `multiple_choice`, `keyword_rubric`, `numeric_match`), registered by name.
+- `src/eval_harness/runner.py` -- `run_eval(task, model) -> EvalResult`,
+  with `standard_error` and `confidence_interval()` on the mean score.
 - `data/sample_tasks.jsonl` -- a handful of example tasks.
 
 ## Usage
@@ -28,7 +29,7 @@ from eval_harness import DummyModel, load_task_from_jsonl, run_eval
 task = load_task_from_jsonl("data/sample_tasks.jsonl", name="sample", scorer_name="exact_match")
 model = DummyModel(responses={"What is 2 + 2?": "4"})
 result = run_eval(task, model)
-print(result.mean_score)
+print(result.mean_score, result.confidence_interval())
 ```
 
 ### Adding a scorer

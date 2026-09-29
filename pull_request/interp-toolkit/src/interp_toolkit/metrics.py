@@ -32,3 +32,30 @@ def patching_effect(
 ) -> torch.Tensor:
     """Normalized recovery: 0 = fully corrupted, 1 = fully recovered to baseline."""
     return (patched_diff - corrupted_diff) / (baseline_diff - corrupted_diff)
+
+
+def sequence_log_probs(logits: torch.Tensor, tokens: torch.Tensor) -> torch.Tensor:
+    """Log-probability the model assigns to each actual next token.
+
+    `logits` is [batch, seq, d_vocab] from running the model on `tokens`
+    ([batch, seq]). Position i predicts token i + 1, so the result is
+    [batch, seq - 1].
+    """
+    log_probs = F.log_softmax(logits[:, :-1, :], dim=-1)
+    return log_probs.gather(-1, tokens[:, 1:, None]).squeeze(-1)
+
+
+def perplexity(
+    logits: torch.Tensor,
+    tokens: torch.Tensor,
+    attention_mask: torch.Tensor | None = None,
+) -> torch.Tensor:
+    """Token-level perplexity, exp(mean next-token NLL), over the whole batch.
+
+    `attention_mask` ([batch, seq], 1 = real token, 0 = right padding) excludes
+    padded positions so sequences of different lengths can share a batch.
+    """
+    nll = -sequence_log_probs(logits, tokens)
+    if attention_mask is not None:
+        nll = nll * attention_mask[:, 1:]
+    return torch.exp(nll.sum() / nll.numel())

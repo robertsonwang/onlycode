@@ -14,6 +14,9 @@ without needing a real model or GPU.
 - `src/redteam_adversarial/search.py` -- `greedy_word_substitution_attack`:
   greedily swaps words for attacker-supplied synonyms to push the
   classifier's score below a threshold.
+- `src/redteam_adversarial/beam.py` -- `beam_search_attack`: keeps the
+  `beam_width` best partial attacks per step, so it can escape dead ends
+  where greedy gets stuck (`beam_width=1` is greedy).
 - `src/redteam_adversarial/metrics.py` -- `attack_success_rate`,
   `mean_substitutions`, `mean_score_drop` over a batch of `AttackResult`s.
 

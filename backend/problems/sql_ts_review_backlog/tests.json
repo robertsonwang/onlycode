@@ -1,0 +1,91 @@
+[
+  {
+    "input": {
+      "tables": {
+        "reports": {
+          "columns": ["report_id INTEGER", "content_id INTEGER", "reporter_id INTEGER", "reason VARCHAR", "reported_ts TIMESTAMP"],
+          "rows": [
+            [1, 100, 1, "spam", "2024-01-01 09:00:00"],
+            [2, 100, 2, "harassment", "2024-01-01 10:00:00"],
+            [3, 101, 1, "spam", "2024-01-02 08:00:00"],
+            [4, 102, 3, "nudity", "2024-01-03 08:00:00"],
+            [5, 102, 4, "nudity", "2024-01-03 09:00:00"],
+            [6, 102, 5, "spam", "2024-01-03 10:00:00"],
+            [7, 103, 2, "spam", "2024-01-04 08:00:00"]
+          ]
+        },
+        "moderation_actions": {
+          "columns": ["action_id INTEGER", "content_id INTEGER", "reviewer_id INTEGER", "decision VARCHAR", "policy VARCHAR", "action_ts TIMESTAMP"],
+          "rows": [
+            [1, 100, 10, "remove", "spam", "2024-01-01 11:00:00"],
+            [2, 103, 11, "no_action", "spam", "2024-01-04 09:00:00"],
+            [3, 104, 10, "remove", "spam", "2024-01-05 08:00:00"]
+          ]
+        }
+      }
+    },
+    "expected_output": [
+      [102, 3],
+      [101, 1]
+    ]
+  },
+  {
+    "input": {
+      "tables": {
+        "reports": {
+          "columns": ["report_id INTEGER", "content_id INTEGER", "reporter_id INTEGER", "reason VARCHAR", "reported_ts TIMESTAMP"],
+          "rows": [
+            [1, 200, 1, "spam", "2024-02-01 09:00:00"],
+            [2, 201, 2, "nudity", "2024-02-01 10:00:00"]
+          ]
+        },
+        "moderation_actions": {
+          "columns": ["action_id INTEGER", "content_id INTEGER", "reviewer_id INTEGER", "decision VARCHAR", "policy VARCHAR", "action_ts TIMESTAMP"],
+          "rows": [
+            [1, 200, 10, "remove", "spam", "2024-02-01 11:00:00"],
+            [2, 201, 11, "no_action", "nudity", "2024-02-01 12:00:00"]
+          ]
+        }
+      }
+    },
+    "expected_output": []
+  },
+  {
+    "input": {
+      "tables": {
+        "reports": {
+          "columns": ["report_id INTEGER", "content_id INTEGER", "reporter_id INTEGER", "reason VARCHAR", "reported_ts TIMESTAMP"],
+          "rows": [
+            [1, 300, 1, "spam", "2024-03-01 09:00:00"],
+            [2, 300, 1, "spam", "2024-03-01 09:05:00"],
+            [3, 301, 2, "spam", "2024-03-01 09:10:00"],
+            [4, 301, 3, "spam", "2024-03-01 09:15:00"]
+          ]
+        },
+        "moderation_actions": {
+          "columns": ["action_id INTEGER", "content_id INTEGER", "reviewer_id INTEGER", "decision VARCHAR", "policy VARCHAR", "action_ts TIMESTAMP"],
+          "rows": []
+        }
+      }
+    },
+    "expected_output": [
+      [300, 2],
+      [301, 2]
+    ]
+  },
+  {
+    "input": {
+      "tables": {
+        "reports": {
+          "columns": ["report_id INTEGER", "content_id INTEGER", "reporter_id INTEGER", "reason VARCHAR", "reported_ts TIMESTAMP"],
+          "rows": []
+        },
+        "moderation_actions": {
+          "columns": ["action_id INTEGER", "content_id INTEGER", "reviewer_id INTEGER", "decision VARCHAR", "policy VARCHAR", "action_ts TIMESTAMP"],
+          "rows": []
+        }
+      }
+    },
+    "expected_output": []
+  }
+]

@@ -1,0 +1,56 @@
+[
+  {
+    "input": {
+      "tables": {
+        "reviewers": {
+          "columns": ["reviewer_id INTEGER", "name VARCHAR", "lead_id INTEGER"],
+          "rows": [
+            [1, "Alice", null],
+            [2, "Bob", 1],
+            [3, "Carol", 1],
+            [4, "Dave", 2],
+            [5, "Eve", 2]
+          ]
+        },
+        "moderation_actions": {
+          "columns": ["action_id INTEGER", "content_id INTEGER", "reviewer_id INTEGER", "decision VARCHAR", "policy VARCHAR", "action_ts TIMESTAMP"],
+          "rows": [
+            [1, 101, 2, "remove", "spam", "2024-01-01 00:00:00"],
+            [2, 102, 2, "remove", "spam", "2024-01-01 00:00:00"],
+            [3, 103, 2, "no_action", "spam", "2024-01-01 00:00:00"],
+            [4, 104, 3, "remove", "spam", "2024-01-01 00:00:00"],
+            [5, 105, 3, "no_action", "spam", "2024-01-01 00:00:00"],
+            [6, 106, 4, "remove", "spam", "2024-01-01 00:00:00"],
+            [7, 107, 4, "remove", "spam", "2024-01-01 00:00:00"],
+            [8, 108, 4, "no_action", "spam", "2024-01-01 00:00:00"],
+            [9, 109, 4, "no_action", "spam", "2024-01-01 00:00:00"],
+            [10, 110, 5, "no_action", "spam", "2024-01-01 00:00:00"],
+            [11, 111, 5, "no_action", "spam", "2024-01-01 00:00:00"],
+            [12, 112, 1, "remove", "spam", "2024-01-01 00:00:00"]
+          ]
+        }
+      }
+    },
+    "expected_output": [
+      ["Alice", 2, 5, 0.6],
+      ["Bob", 2, 6, 0.33]
+    ]
+  },
+  {
+    "input": {
+      "tables": {
+        "reviewers": {
+          "columns": ["reviewer_id INTEGER", "name VARCHAR", "lead_id INTEGER"],
+          "rows": [
+            [1, "Solo", null]
+          ]
+        },
+        "moderation_actions": {
+          "columns": ["action_id INTEGER", "content_id INTEGER", "reviewer_id INTEGER", "decision VARCHAR", "policy VARCHAR", "action_ts TIMESTAMP"],
+          "rows": []
+        }
+      }
+    },
+    "expected_output": []
+  }
+]

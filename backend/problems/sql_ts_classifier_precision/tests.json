@@ -1,0 +1,56 @@
+[
+  {
+    "input": {
+      "tables": {
+        "classifier_flags": {
+          "columns": ["content_id INTEGER", "model_version VARCHAR", "score DOUBLE", "flagged_ts TIMESTAMP"],
+          "rows": [
+            [1, "v1", 0.9, "2024-01-01 00:00:00"],
+            [2, "v1", 0.8, "2024-01-01 00:00:00"],
+            [3, "v1", 0.7, "2024-01-01 00:00:00"],
+            [4, "v1", 0.6, "2024-01-01 00:00:00"],
+            [5, "v1", 0.5, "2024-01-01 00:00:00"],
+            [6, "v2", 0.95, "2024-01-01 00:00:00"],
+            [7, "v2", 0.9, "2024-01-01 00:00:00"],
+            [8, "v2", 0.85, "2024-01-01 00:00:00"]
+          ]
+        },
+        "moderation_actions": {
+          "columns": ["action_id INTEGER", "content_id INTEGER", "reviewer_id INTEGER", "decision VARCHAR", "policy VARCHAR", "action_ts TIMESTAMP"],
+          "rows": [
+            [1, 1, 100, "remove", "spam", "2024-01-02 00:00:00"],
+            [2, 2, 100, "remove", "spam", "2024-01-02 00:00:00"],
+            [3, 3, 100, "no_action", "spam", "2024-01-02 00:00:00"],
+            [4, 4, 100, "remove", "spam", "2023-12-31 00:00:00"],
+            [5, 6, 100, "remove", "spam", "2024-01-02 00:00:00"],
+            [6, 7, 100, "remove", "spam", "2024-01-02 00:00:00"],
+            [7, 8, 100, "remove", "spam", "2024-01-02 00:00:00"]
+          ]
+        }
+      }
+    },
+    "expected_output": [
+      ["v1", 5, 3, 2, 0.67, 0.4],
+      ["v2", 3, 3, 3, 1.0, 0.0]
+    ]
+  },
+  {
+    "input": {
+      "tables": {
+        "classifier_flags": {
+          "columns": ["content_id INTEGER", "model_version VARCHAR", "score DOUBLE", "flagged_ts TIMESTAMP"],
+          "rows": [
+            [1, "v3", 0.9, "2024-02-01 00:00:00"]
+          ]
+        },
+        "moderation_actions": {
+          "columns": ["action_id INTEGER", "content_id INTEGER", "reviewer_id INTEGER", "decision VARCHAR", "policy VARCHAR", "action_ts TIMESTAMP"],
+          "rows": []
+        }
+      }
+    },
+    "expected_output": [
+      ["v3", 1, 0, 0, null, 1.0]
+    ]
+  }
+]

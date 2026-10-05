@@ -1,0 +1,50 @@
+[
+  {
+    "input": {
+      "tables": {
+        "moderation_actions": {
+          "columns": ["action_id INTEGER", "content_id INTEGER", "reviewer_id INTEGER", "decision VARCHAR", "policy VARCHAR", "action_ts TIMESTAMP"],
+          "rows": [
+            [1, 1, 100, "remove", "spam", "2024-01-01 00:00:00"],
+            [2, 1, 101, "remove", "spam", "2024-01-02 00:00:00"],
+            [3, 2, 100, "remove", "spam", "2024-01-01 00:00:00"],
+            [4, 3, 101, "remove", "spam", "2024-01-01 00:00:00"],
+            [5, 4, 100, "remove", "spam", "2024-01-01 00:00:00"],
+            [6, 5, 102, "remove", "spam", "2024-01-01 00:00:00"]
+          ]
+        }
+      }
+    },
+    "expected_output": [
+      [100, 3],
+      [101, 1],
+      [102, 1]
+    ]
+  },
+  {
+    "input": {
+      "tables": {
+        "moderation_actions": {
+          "columns": ["action_id INTEGER", "content_id INTEGER", "reviewer_id INTEGER", "decision VARCHAR", "policy VARCHAR", "action_ts TIMESTAMP"],
+          "rows": [
+            [1, 1, 200, "remove", "spam", "2024-01-01 00:00:00"]
+          ]
+        }
+      }
+    },
+    "expected_output": [
+      [200, 1]
+    ]
+  },
+  {
+    "input": {
+      "tables": {
+        "moderation_actions": {
+          "columns": ["action_id INTEGER", "content_id INTEGER", "reviewer_id INTEGER", "decision VARCHAR", "policy VARCHAR", "action_ts TIMESTAMP"],
+          "rows": []
+        }
+      }
+    },
+    "expected_output": []
+  }
+]

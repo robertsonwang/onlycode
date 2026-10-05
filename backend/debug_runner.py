@@ -25,6 +25,8 @@ from typing import Any
 
 from fastapi import WebSocket, WebSocketDisconnect
 
+from problem_utils import build_submission_code
+
 PROBLEMS_DIR = Path(__file__).resolve().parent / "problems"
 
 
@@ -122,7 +124,7 @@ async def handle_debug_session(websocket: WebSocket) -> None:
             return
 
         tests = json.loads(tests_path.read_text(encoding="utf-8"))
-        script = _build_debug_script(code, tests)
+        script = _build_debug_script(build_submission_code(problem_id, code), tests)
 
         # Find python
         python_cmd = shutil.which("python3") or sys.executable

@@ -1,0 +1,67 @@
+[
+  {
+    "input": {
+      "tables": {
+        "daily_views": {
+          "columns": ["\"date\" DATE", "views INTEGER", "violating_views INTEGER"],
+          "rows": [
+            ["2024-01-01", 1000, 50],
+            ["2024-01-02", 2000, 10],
+            ["2024-01-03", 0, 0],
+            ["2024-02-01", 1500, 0],
+            ["2024-02-02", 500, 500],
+            ["2024-03-01", 0, 0],
+            ["2024-03-02", 0, 0]
+          ]
+        }
+      }
+    },
+    "expected_output": [
+      ["2024-01", 3000, 60, 0.02],
+      ["2024-02", 2000, 500, 0.25],
+      ["2024-03", 0, 0, null]
+    ]
+  },
+  {
+    "input": {
+      "tables": {
+        "daily_views": {
+          "columns": ["\"date\" DATE", "views INTEGER", "violating_views INTEGER"],
+          "rows": [
+            ["2024-05-01", 100, 0]
+          ]
+        }
+      }
+    },
+    "expected_output": [
+      ["2024-05", 100, 0, 0.0]
+    ]
+  },
+  {
+    "input": {
+      "tables": {
+        "daily_views": {
+          "columns": ["\"date\" DATE", "views INTEGER", "violating_views INTEGER"],
+          "rows": []
+        }
+      }
+    },
+    "expected_output": []
+  },
+  {
+    "input": {
+      "tables": {
+        "daily_views": {
+          "columns": ["\"date\" DATE", "views INTEGER", "violating_views INTEGER"],
+          "rows": [
+            ["2024-06-01", 300, 100],
+            ["2024-06-02", 100, 100]
+          ]
+        }
+      }
+    },
+    "expected_output": [
+      ["2024-06", 400, 200, 0.5]
+    ]
+  }
+]

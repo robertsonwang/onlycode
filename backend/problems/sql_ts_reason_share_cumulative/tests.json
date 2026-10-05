@@ -1,0 +1,49 @@
+[
+  {
+    "input": {
+      "tables": {
+        "reports": {
+          "columns": ["report_id INTEGER", "content_id INTEGER", "reporter_id INTEGER", "reason VARCHAR", "reported_ts TIMESTAMP"],
+          "rows": [
+            [1, 101, 1, "spam", "2024-01-01 00:00:00"], [2, 102, 2, "spam", "2024-01-01 00:00:00"], [3, 103, 3, "spam", "2024-01-01 00:00:00"], [4, 104, 4, "spam", "2024-01-01 00:00:00"], [5, 105, 5, "spam", "2024-01-01 00:00:00"], [6, 106, 6, "spam", "2024-01-01 00:00:00"], [7, 107, 7, "spam", "2024-01-01 00:00:00"], [8, 108, 8, "spam", "2024-01-01 00:00:00"], [9, 109, 9, "spam", "2024-01-01 00:00:00"], [10, 110, 10, "spam", "2024-01-01 00:00:00"],
+            [11, 111, 11, "harassment", "2024-01-01 00:00:00"], [12, 112, 12, "harassment", "2024-01-01 00:00:00"], [13, 113, 13, "harassment", "2024-01-01 00:00:00"], [14, 114, 14, "harassment", "2024-01-01 00:00:00"], [15, 115, 15, "harassment", "2024-01-01 00:00:00"], [16, 116, 16, "harassment", "2024-01-01 00:00:00"],
+            [17, 117, 17, "nudity", "2024-01-01 00:00:00"], [18, 118, 18, "nudity", "2024-01-01 00:00:00"], [19, 119, 19, "nudity", "2024-01-01 00:00:00"], [20, 120, 20, "nudity", "2024-01-01 00:00:00"], [21, 121, 21, "nudity", "2024-01-01 00:00:00"], [22, 122, 22, "nudity", "2024-01-01 00:00:00"],
+            [23, 123, 23, "misinfo", "2024-01-01 00:00:00"], [24, 124, 24, "misinfo", "2024-01-01 00:00:00"], [25, 125, 25, "misinfo", "2024-01-01 00:00:00"]
+          ]
+        }
+      }
+    },
+    "expected_output": [
+      ["spam", 10, 40.0, 10],
+      ["harassment", 6, 24.0, 16],
+      ["nudity", 6, 24.0, 22],
+      ["misinfo", 3, 12.0, 25]
+    ]
+  },
+  {
+    "input": {
+      "tables": {
+        "reports": {
+          "columns": ["report_id INTEGER", "content_id INTEGER", "reporter_id INTEGER", "reason VARCHAR", "reported_ts TIMESTAMP"],
+          "rows": [
+            [1, 1, 1, "spam", "2024-01-01 00:00:00"]
+          ]
+        }
+      }
+    },
+    "expected_output": [
+      ["spam", 1, 100.0, 1]
+    ]
+  },
+  {
+    "input": {
+      "tables": {
+        "reports": {
+          "columns": ["report_id INTEGER", "content_id INTEGER", "reporter_id INTEGER", "reason VARCHAR", "reported_ts TIMESTAMP"],
+          "rows": []
+        }
+      }
+    },
+    "expected_output": []
+  }
+]

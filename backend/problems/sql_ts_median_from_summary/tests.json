@@ -1,0 +1,56 @@
+[
+  {
+    "input": {
+      "tables": {
+        "reporter_summary": {
+          "columns": ["reports_filed INTEGER", "num_users INTEGER"],
+          "rows": [
+            [1, 50],
+            [2, 30],
+            [3, 15],
+            [5, 4],
+            [10, 1]
+          ]
+        }
+      }
+    },
+    "expected_output": [
+      [1.5]
+    ]
+  },
+  {
+    "input": {
+      "tables": {
+        "reporter_summary": {
+          "columns": ["reports_filed INTEGER", "num_users INTEGER"],
+          "rows": [
+            [1, 50],
+            [2, 31],
+            [3, 15],
+            [5, 4],
+            [10, 1]
+          ]
+        }
+      }
+    },
+    "expected_output": [
+      [2.0]
+    ]
+  },
+  {
+    "input": {
+      "tables": {
+        "reporter_summary": {
+          "columns": ["reports_filed INTEGER", "num_users INTEGER"],
+          "rows": [
+            [1, 2],
+            [2, 1]
+          ]
+        }
+      }
+    },
+    "expected_output": [
+      [1.0]
+    ]
+  }
+]

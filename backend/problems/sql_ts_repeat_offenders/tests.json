@@ -1,0 +1,95 @@
+[
+  {
+    "input": {
+      "tables": {
+        "content": {
+          "columns": ["content_id INTEGER", "author_id INTEGER", "content_type VARCHAR", "created_ts TIMESTAMP"],
+          "rows": [
+            [10, 1, "post", "2024-02-01 00:00:00"],
+            [11, 1, "post", "2024-02-02 00:00:00"],
+            [12, 1, "post", "2024-02-03 00:00:00"],
+            [20, 2, "post", "2024-02-01 00:00:00"],
+            [30, 3, "post", "2024-02-20 00:00:00"],
+            [31, 3, "post", "2024-02-25 00:00:00"],
+            [32, 3, "post", "2024-03-01 00:00:00"],
+            [33, 3, "post", "2024-03-02 00:00:00"],
+            [40, 4, "post", "2024-02-01 00:00:00"],
+            [41, 4, "post", "2024-02-02 00:00:00"],
+            [42, 4, "post", "2024-02-03 00:00:00"],
+            [43, 4, "post", "2024-02-04 00:00:00"],
+            [50, 5, "post", "2024-03-01 00:00:00"]
+          ]
+        },
+        "moderation_actions": {
+          "columns": ["action_id INTEGER", "content_id INTEGER", "reviewer_id INTEGER", "decision VARCHAR", "policy VARCHAR", "action_ts TIMESTAMP"],
+          "rows": [
+            [1, 10, 100, "remove", "spam", "2024-03-05 00:00:00"],
+            [2, 11, 100, "remove", "spam", "2024-03-10 00:00:00"],
+            [3, 12, 100, "remove", "spam", "2024-03-15 00:00:00"],
+            [4, 20, 101, "remove", "spam", "2024-03-01 00:00:00"],
+            [5, 20, 101, "remove", "spam", "2024-03-20 00:00:00"],
+            [6, 30, 102, "remove", "spam", "2024-02-28 00:00:00"],
+            [7, 31, 102, "remove", "spam", "2024-03-01 00:00:00"],
+            [8, 32, 102, "remove", "spam", "2024-03-02 00:00:00"],
+            [9, 40, 103, "remove", "spam", "2024-03-01 00:00:00"],
+            [10, 41, 103, "remove", "spam", "2024-03-02 00:00:00"],
+            [11, 42, 103, "remove", "spam", "2024-03-03 00:00:00"],
+            [12, 43, 103, "remove", "spam", "2024-03-04 00:00:00"],
+            [13, 50, 104, "no_action", "spam", "2024-03-05 00:00:00"]
+          ]
+        }
+      }
+    },
+    "expected_output": [
+      [4, 4],
+      [1, 3]
+    ]
+  },
+  {
+    "input": {
+      "tables": {
+        "content": {
+          "columns": ["content_id INTEGER", "author_id INTEGER", "content_type VARCHAR", "created_ts TIMESTAMP"],
+          "rows": []
+        },
+        "moderation_actions": {
+          "columns": ["action_id INTEGER", "content_id INTEGER", "reviewer_id INTEGER", "decision VARCHAR", "policy VARCHAR", "action_ts TIMESTAMP"],
+          "rows": []
+        }
+      }
+    },
+    "expected_output": []
+  },
+  {
+    "input": {
+      "tables": {
+        "content": {
+          "columns": ["content_id INTEGER", "author_id INTEGER", "content_type VARCHAR", "created_ts TIMESTAMP"],
+          "rows": [
+            [1, 10, "post", "2024-01-01 00:00:00"],
+            [2, 10, "post", "2024-01-01 00:00:00"],
+            [3, 10, "post", "2024-01-01 00:00:00"],
+            [4, 20, "post", "2024-01-01 00:00:00"],
+            [5, 20, "post", "2024-01-01 00:00:00"],
+            [6, 20, "post", "2024-01-01 00:00:00"]
+          ]
+        },
+        "moderation_actions": {
+          "columns": ["action_id INTEGER", "content_id INTEGER", "reviewer_id INTEGER", "decision VARCHAR", "policy VARCHAR", "action_ts TIMESTAMP"],
+          "rows": [
+            [1, 1, 100, "remove", "spam", "2024-03-05 00:00:00"],
+            [2, 2, 100, "remove", "spam", "2024-03-06 00:00:00"],
+            [3, 3, 100, "remove", "spam", "2024-03-07 00:00:00"],
+            [4, 4, 100, "remove", "spam", "2024-03-05 00:00:00"],
+            [5, 5, 100, "remove", "spam", "2024-03-06 00:00:00"],
+            [6, 6, 100, "remove", "spam", "2024-03-07 00:00:00"]
+          ]
+        }
+      }
+    },
+    "expected_output": [
+      [10, 3],
+      [20, 3]
+    ]
+  }
+]

@@ -1,0 +1,74 @@
+[
+  {
+    "input": {
+      "tables": {
+        "reports": {
+          "columns": ["report_id INTEGER", "content_id INTEGER", "reporter_id INTEGER", "reason VARCHAR", "reported_ts TIMESTAMP"],
+          "rows": [
+            [1, 1, 10, "spam", "2024-01-01 00:00:00"],
+            [2, 2, 11, "spam", "2024-01-01 00:00:00"],
+            [3, 3, 12, "spam", "2024-01-01 00:00:00"],
+            [4, 4, 13, "spam", "2024-01-01 00:00:00"],
+            [5, 5, 14, "spam", "2024-01-01 00:00:00"]
+          ]
+        },
+        "moderation_actions": {
+          "columns": ["action_id INTEGER", "content_id INTEGER", "reviewer_id INTEGER", "decision VARCHAR", "policy VARCHAR", "action_ts TIMESTAMP"],
+          "rows": [
+            [1, 1, 100, "remove", "spam", "2024-01-01 02:00:00"],
+            [2, 2, 100, "remove", "spam", "2024-01-01 10:00:00"],
+            [3, 3, 100, "remove", "spam", "2024-01-02 02:00:00"],
+            [4, 4, 100, "remove", "spam", "2024-01-03 02:00:00"],
+            [5, 5, 100, "no_action", "spam", "2023-12-31 00:00:00"],
+            [6, 5, 100, "remove", "spam", "2024-01-02 06:00:00"]
+          ]
+        }
+      }
+    },
+    "expected_output": [
+      [26.0, 42.0, 40.0]
+    ]
+  },
+  {
+    "input": {
+      "tables": {
+        "reports": {
+          "columns": ["report_id INTEGER", "content_id INTEGER", "reporter_id INTEGER", "reason VARCHAR", "reported_ts TIMESTAMP"],
+          "rows": [
+            [1, 1, 10, "spam", "2024-02-01 00:00:00"],
+            [2, 2, 11, "spam", "2024-02-01 00:00:00"]
+          ]
+        },
+        "moderation_actions": {
+          "columns": ["action_id INTEGER", "content_id INTEGER", "reviewer_id INTEGER", "decision VARCHAR", "policy VARCHAR", "action_ts TIMESTAMP"],
+          "rows": [
+            [1, 1, 100, "remove", "spam", "2024-02-01 01:00:00"],
+            [2, 2, 100, "remove", "spam", "2024-02-01 05:00:00"]
+          ]
+        }
+      }
+    },
+    "expected_output": [
+      [3.0, 4.6, 100.0]
+    ]
+  },
+  {
+    "input": {
+      "tables": {
+        "reports": {
+          "columns": ["report_id INTEGER", "content_id INTEGER", "reporter_id INTEGER", "reason VARCHAR", "reported_ts TIMESTAMP"],
+          "rows": [
+            [1, 1, 10, "spam", "2024-03-01 00:00:00"]
+          ]
+        },
+        "moderation_actions": {
+          "columns": ["action_id INTEGER", "content_id INTEGER", "reviewer_id INTEGER", "decision VARCHAR", "policy VARCHAR", "action_ts TIMESTAMP"],
+          "rows": []
+        }
+      }
+    },
+    "expected_output": [
+      [null, null, null]
+    ]
+  }
+]

@@ -9,6 +9,7 @@ from pydantic import BaseModel
 
 from db import get_problem, init_db, list_problems, log_submission, sync_problems_from_filesystem
 from debug_runner import handle_debug_session
+from problem_utils import build_submission_code
 from runner import run_submission
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -50,14 +51,23 @@ def get_problem_details(problem_id: str) -> dict:
     problem_dir = PROBLEMS_DIR / problem_id
     md_path = problem_dir / "problem.md"
     starter_path = problem_dir / "starter.py"
+    query_starter_path = problem_dir / "query_starter.sql"
 
     if not md_path.exists() or not starter_path.exists():
         raise HTTPException(status_code=500, detail="Problem assets missing")
 
+    if query_starter_path.exists():
+        starter_code = query_starter_path.read_text(encoding="utf-8")
+        editor_language = "sql"
+    else:
+        starter_code = starter_path.read_text(encoding="utf-8")
+        editor_language = "python"
+
     return {
         **problem,
         "problem_markdown": md_path.read_text(encoding="utf-8"),
-        "starter_code": starter_path.read_text(encoding="utf-8"),
+        "starter_code": starter_code,
+        "editor_language": editor_language,
     }
 
 
@@ -84,7 +94,8 @@ def submit_solution(payload: SubmissionRequest) -> dict:
         except json.JSONDecodeError as exc:
             raise HTTPException(status_code=500, detail=f"Invalid runner.json: {exc}") from exc
 
-    result = run_submission(payload.code, tests, **runner_config)
+    exec_code = build_submission_code(payload.problem_id, payload.code)
+    result = run_submission(exec_code, tests, **runner_config)
     log_submission(payload.problem_id, payload.code, result.get("all_passed", False))
 
     return {

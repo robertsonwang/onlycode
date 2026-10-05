@@ -243,6 +243,10 @@
         flex-direction: column;
       }
 
+      .result-panel.hidden {
+        display: none;
+      }
+
       .terminal-header {
         display: flex;
         justify-content: space-between;
@@ -380,7 +384,7 @@
         <div class="resize-handle" id="resizeHandle"></div>
 
         <article class="card editor-panel" id="editorPanel">
-          <h2>Code Editor</h2>
+          <h2 id="editorTitle">Code Editor</h2>
           <div id="editor"></div>
         </article>
 
@@ -425,8 +429,10 @@
       const problemMetaEl = document.getElementById("problemMeta");
       const problemContentEl = document.getElementById("problemContent");
       const resultTableEl = document.getElementById("resultTable");
+      const resultPanelEl = document.getElementById("resultPanel");
       const statusBadgeEl = document.getElementById("statusBadge");
       const errorBoxEl = document.getElementById("errorBox");
+      const editorTitleEl = document.getElementById("editorTitle");
 
       function setStatus(label, isPass = null) {
         statusBadgeEl.textContent = label;
@@ -515,6 +521,10 @@
         const savedCode = localStorage.getItem(`code_${data.id}`);
         editor.setValue(savedCode !== null ? savedCode : data.starter_code);
 
+        const language = data.editor_language || "python";
+        monaco.editor.setModelLanguage(editor.getModel(), language);
+        editorTitleEl.textContent = language === "sql" ? "SQL Editor" : "Code Editor";
+
         setStatus("Ready");
         errorBoxEl.textContent = "";
         resultTableEl.textContent = "Run your code to see testcase results.";
@@ -522,6 +532,8 @@
 
       async function submitSolution() {
         if (!currentProblemId) return;
+        closeDebugTerminal();
+        resultPanelEl.classList.remove("hidden");
         runBtn.disabled = true;
         setStatus("Running...");
         errorBoxEl.textContent = "";
@@ -608,6 +620,7 @@
         if (!currentProblemId) return;
 
         // Show terminal panel
+        resultPanelEl.classList.add("hidden");
         terminalPanel.classList.add("visible");
 
         // Create or reset terminal

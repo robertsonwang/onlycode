@@ -1,0 +1,69 @@
+[
+  {
+    "input": {
+      "tables": {
+        "moderation_actions": {
+          "columns": ["action_id INTEGER", "content_id INTEGER", "reviewer_id INTEGER", "decision VARCHAR", "policy VARCHAR", "action_ts TIMESTAMP"],
+          "rows": [
+            [1, 200, 10, "no_action", "spam", "2024-02-01 08:00:00"],
+            [2, 200, 11, "remove", "spam", "2024-02-01 10:00:00"],
+            [3, 201, 10, "remove", "spam", "2024-02-01 09:00:00"],
+            [4, 202, 12, "no_action", "harassment", "2024-02-01 09:00:00"],
+            [5, 202, 13, "no_action", "harassment", "2024-02-01 11:00:00"],
+            [6, 203, 10, "remove", "harassment", "2024-02-01 09:00:00"],
+            [7, 204, 11, "no_action", "spam", "2024-02-01 09:00:00"],
+            [10, 205, 10, "remove", "nudity", "2024-02-01 09:00:00"],
+            [11, 205, 12, "no_action", "nudity", "2024-02-01 09:00:00"]
+          ]
+        }
+      }
+    },
+    "expected_output": [
+      ["harassment", 2, 1, 0.5],
+      ["nudity", 1, 0, 0.0],
+      ["spam", 3, 2, 0.67]
+    ]
+  },
+  {
+    "input": {
+      "tables": {
+        "moderation_actions": {
+          "columns": ["action_id INTEGER", "content_id INTEGER", "reviewer_id INTEGER", "decision VARCHAR", "policy VARCHAR", "action_ts TIMESTAMP"],
+          "rows": [
+            [1, 300, 10, "remove", "csam", "2024-03-01 09:00:00"],
+            [2, 301, 11, "remove", "csam", "2024-03-01 10:00:00"]
+          ]
+        }
+      }
+    },
+    "expected_output": [
+      ["csam", 2, 2, 1.0]
+    ]
+  },
+  {
+    "input": {
+      "tables": {
+        "moderation_actions": {
+          "columns": ["action_id INTEGER", "content_id INTEGER", "reviewer_id INTEGER", "decision VARCHAR", "policy VARCHAR", "action_ts TIMESTAMP"],
+          "rows": [
+            [1, 400, 10, "no_action", "misinfo", "2024-04-01 09:00:00"]
+          ]
+        }
+      }
+    },
+    "expected_output": [
+      ["misinfo", 1, 0, 0.0]
+    ]
+  },
+  {
+    "input": {
+      "tables": {
+        "moderation_actions": {
+          "columns": ["action_id INTEGER", "content_id INTEGER", "reviewer_id INTEGER", "decision VARCHAR", "policy VARCHAR", "action_ts TIMESTAMP"],
+          "rows": []
+        }
+      }
+    },
+    "expected_output": []
+  }
+]

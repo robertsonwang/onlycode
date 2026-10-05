@@ -1,0 +1,76 @@
+[
+  {
+    "input": {
+      "tables": {
+        "orders": {
+          "columns": ["order_id INTEGER", "product_name VARCHAR", "order_month VARCHAR", "quantity INTEGER"],
+          "rows": [
+            [1, "Widget", "2024-06", 5],
+            [2, "Widget", "2024-06", 7],
+            [3, "Gadget", "2024-06", 9],
+            [4, "Widget", "2024-07", 3],
+            [5, "Gizmo", "2024-07", 10]
+          ]
+        }
+      }
+    },
+    "expected_output": [
+      ["2024-06", "Widget", 12],
+      ["2024-07", "Gizmo", 10]
+    ]
+  },
+  {
+    "input": {
+      "tables": {
+        "orders": {
+          "columns": ["order_id INTEGER", "product_name VARCHAR", "order_month VARCHAR", "quantity INTEGER"],
+          "rows": [
+            [1, "Beta", "2024-08", 6],
+            [2, "Alpha", "2024-08", 6],
+            [3, "Charlie", "2024-08", 4]
+          ]
+        }
+      }
+    },
+    "expected_output": [
+      ["2024-08", "Alpha", 6]
+    ]
+  },
+  {
+    "input": {
+      "tables": {
+        "orders": {
+          "columns": ["order_id INTEGER", "product_name VARCHAR", "order_month VARCHAR", "quantity INTEGER"],
+          "rows": [
+            [1, "Solo", "2024-01", 1]
+          ]
+        }
+      }
+    },
+    "expected_output": [
+      ["2024-01", "Solo", 1]
+    ]
+  },
+  {
+    "input": {
+      "tables": {
+        "orders": {
+          "columns": ["order_id INTEGER", "product_name VARCHAR", "order_month VARCHAR", "quantity INTEGER"],
+          "rows": [
+            [1, "A", "2024-02", 3],
+            [2, "B", "2024-02", 3],
+            [3, "A", "2024-03", 2],
+            [4, "B", "2024-03", 5],
+            [5, "A", "2024-01", 1],
+            [6, "C", "2024-01", 1]
+          ]
+        }
+      }
+    },
+    "expected_output": [
+      ["2024-01", "A", 1],
+      ["2024-02", "A", 3],
+      ["2024-03", "B", 5]
+    ]
+  }
+]

@@ -1,0 +1,51 @@
+[
+  {
+    "input": {
+      "tables": {
+        "content": {
+          "columns": ["content_id INTEGER", "author_id INTEGER", "content_type VARCHAR", "created_ts TIMESTAMP"],
+          "rows": [
+            [1, 1, "post", "2024-01-01 00:00:00"],
+            [2, 1, "post", "2024-01-01 00:00:00"],
+            [3, 1, "post", "2024-01-01 00:00:00"],
+            [4, 2, "comment", "2024-01-01 00:00:00"],
+            [5, 2, "comment", "2024-01-01 00:00:00"],
+            [6, 3, "video", "2024-01-01 00:00:00"]
+          ]
+        },
+        "moderation_actions": {
+          "columns": ["action_id INTEGER", "content_id INTEGER", "reviewer_id INTEGER", "decision VARCHAR", "policy VARCHAR", "action_ts TIMESTAMP"],
+          "rows": [
+            [1, 1, 100, "no_action", "spam", "2024-01-02 00:00:00"],
+            [2, 1, 100, "remove", "spam", "2024-01-03 00:00:00"],
+            [3, 2, 100, "remove", "spam", "2024-01-02 00:00:00"],
+            [4, 3, 100, "no_action", "spam", "2024-01-02 00:00:00"],
+            [5, 4, 100, "remove", "harassment", "2024-01-02 00:00:00"],
+            [6, 5, 100, "no_action", "harassment", "2024-01-02 00:00:00"]
+          ]
+        }
+      }
+    },
+    "expected_output": [
+      ["comment", 2, 1, 1],
+      ["post", 3, 2, 1]
+    ]
+  },
+  {
+    "input": {
+      "tables": {
+        "content": {
+          "columns": ["content_id INTEGER", "author_id INTEGER", "content_type VARCHAR", "created_ts TIMESTAMP"],
+          "rows": [
+            [1, 1, "post", "2024-01-01 00:00:00"]
+          ]
+        },
+        "moderation_actions": {
+          "columns": ["action_id INTEGER", "content_id INTEGER", "reviewer_id INTEGER", "decision VARCHAR", "policy VARCHAR", "action_ts TIMESTAMP"],
+          "rows": []
+        }
+      }
+    },
+    "expected_output": []
+  }
+]

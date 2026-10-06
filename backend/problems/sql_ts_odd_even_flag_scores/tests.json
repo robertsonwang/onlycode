@@ -1,0 +1,48 @@
+[
+  {
+    "input": {
+      "tables": {
+        "classifier_flags": {
+          "columns": ["content_id INTEGER", "model_version VARCHAR", "score DOUBLE", "flagged_ts TIMESTAMP"],
+          "rows": [
+            [1, "v1", 10.0, "2024-01-01 09:00:00"],
+            [1, "v1", 20.0, "2024-01-01 11:00:00"],
+            [1, "v1", 30.0, "2024-01-01 13:15:00"],
+            [2, "v1", 15.0, "2024-01-01 15:00:00"],
+            [2, "v1", 25.0, "2024-01-01 16:45:00"]
+          ]
+        }
+      }
+    },
+    "expected_output": [
+      [1, 40.0, 20.0],
+      [2, 15.0, 25.0]
+    ]
+  },
+  {
+    "input": {
+      "tables": {
+        "classifier_flags": {
+          "columns": ["content_id INTEGER", "model_version VARCHAR", "score DOUBLE", "flagged_ts TIMESTAMP"],
+          "rows": [
+            [5, "v1", 7.5, "2024-01-01 00:00:00"]
+          ]
+        }
+      }
+    },
+    "expected_output": [
+      [5, 7.5, 0.0]
+    ]
+  },
+  {
+    "input": {
+      "tables": {
+        "classifier_flags": {
+          "columns": ["content_id INTEGER", "model_version VARCHAR", "score DOUBLE", "flagged_ts TIMESTAMP"],
+          "rows": []
+        }
+      }
+    },
+    "expected_output": []
+  }
+]

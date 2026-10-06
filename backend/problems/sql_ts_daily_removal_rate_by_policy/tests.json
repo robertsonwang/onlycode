@@ -1,0 +1,35 @@
+[
+  {
+    "input": {
+      "tables": {
+        "moderation_actions": {
+          "columns": ["action_id INTEGER", "content_id INTEGER", "reviewer_id INTEGER", "decision VARCHAR", "policy VARCHAR", "action_ts TIMESTAMP"],
+          "rows": [
+            [1, 1, 100, "remove", "spam", "2024-01-01 09:00:00"],
+            [2, 2, 100, "remove", "spam", "2024-01-01 10:00:00"],
+            [3, 3, 100, "no_action", "spam", "2024-01-01 11:00:00"],
+            [4, 4, 100, "no_action", "spam", "2024-01-02 09:00:00"],
+            [5, 5, 100, "remove", "harassment", "2024-01-01 09:00:00"],
+            [6, 6, 100, "no_action", "harassment", "2024-01-01 09:00:00"]
+          ]
+        }
+      }
+    },
+    "expected_output": [
+      ["harassment", "2024-01-01", 2, 1, 0.5],
+      ["spam", "2024-01-01", 3, 2, 0.67],
+      ["spam", "2024-01-02", 1, 0, 0.0]
+    ]
+  },
+  {
+    "input": {
+      "tables": {
+        "moderation_actions": {
+          "columns": ["action_id INTEGER", "content_id INTEGER", "reviewer_id INTEGER", "decision VARCHAR", "policy VARCHAR", "action_ts TIMESTAMP"],
+          "rows": []
+        }
+      }
+    },
+    "expected_output": []
+  }
+]
